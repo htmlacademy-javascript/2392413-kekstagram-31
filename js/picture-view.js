@@ -25,7 +25,7 @@ import { addOrRemoveClass, isEscapeKey } from './utils';
  * Обработчик события клик на закрытие фото (крестик в правом углу)
  * Просто закрываем формыу
  */
-const onPictureCloseClick = function () {
+const onPictureCloseClick = () => {
   formClose();
 };
 
@@ -33,7 +33,7 @@ const onPictureCloseClick = function () {
  * Обработчик события keydown. Должно срабатывать только на Esc.
  * Просто закрываем формыу
  */
-const onPictureCloseKeydown = function (evt) {
+const onPictureCloseKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     formClose();
   }
@@ -55,7 +55,7 @@ function formClose() {
  * константе COMMENT_LOADING_COUNT.
  * Если все комментарии подгружены, то скрываем ссылку.
  */
-const onCommentLoaderClick = function () {
+const onCommentLoaderClick = () => {
   const comments = getComments();
 
   const lastCommentShowItem = Math.max(getLastCommentShowItem(), 0);
@@ -82,7 +82,7 @@ const onCommentLoaderClick = function () {
 /**
  * Инициализация блока с комментариями.
  */
-const initCommentBlock = function () {
+const initCommentBlock = () => {
   commentTotalCountElement.textContent = getComments().length;
   commentCountContainerElement.classList.remove('hidden');
 };
@@ -90,7 +90,7 @@ const initCommentBlock = function () {
 /**
  * Отрисовка фото
  */
-const renderBigPicture = function () {
+const renderBigPicture = () => {
   const { url, likes, description } = getSelectedPicture();
   bigPictureImgElement.src = url;
   likesCountElement.textContent = likes;
@@ -107,7 +107,7 @@ const renderBigPicture = function () {
 /**
  * Инициализация формы просмотра фото
  */
-const initPictureView = function () {
+const initPictureView = () => {
   bigPictureCancelElement.addEventListener('click', onPictureCloseClick);
   commentsLoaderElement.addEventListener('click', onCommentLoaderClick);
 };

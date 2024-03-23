@@ -5,11 +5,9 @@ const getRandomInteger = function (firstNumber, secondNumber) {
   return Math.floor(result);
 };
 
-const getRandomArrayElement = function (elements) {
-  return elements[getRandomInteger(0, elements.length - 1)];
-};
+const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-const getUniqueRandomArrayElement = function (elements, maxCount) {
+const getUniqueRandomArrayElement = (elements, maxCount) => {
   const uniqueueIndex = new Set();
   while (uniqueueIndex.size !== Math.min(maxCount, elements.length)) {
     uniqueueIndex.add(getRandomInteger(0, elements.length - 1));
@@ -20,19 +18,14 @@ const getUniqueRandomArrayElement = function (elements, maxCount) {
   return result;
 };
 
-const validateHashtag = function (hashtag) {
-  return /^#[a-zа-яё0-9]{1,19}$/i.test(hashtag);
+const renderTemplate = (templateId, selector) => {
+  const template = document.querySelector(templateId).content;
+  return (selector ? template.querySelector(selector) : template).cloneNode(
+    true
+  );
 };
 
-const allowHashtagChar = function (char) {
-  return /[#a-zа-яё0-9 ]/.test(char);
-};
-
-const validateStringLen = function (stringValue, maxLength) {
-  return stringValue.length <= maxLength;
-};
-
-const debounce = function (callback, timeoutDelay) {
+const debounce = (callback, timeoutDelay) => {
   let timeoutId = 0;
   return (...rest) => {
     clearTimeout(timeoutId);
@@ -42,14 +35,7 @@ const debounce = function (callback, timeoutDelay) {
   };
 };
 
-const renderTemplate = function (templateId, selector) {
-  const template = document.querySelector(templateId).content;
-  return (selector ? template.querySelector(selector) : template).cloneNode(
-    true
-  );
-};
-
-const addOrRemoveClass = function (element, className, condition) {
+const addOrRemoveClass = (element, className, condition) => {
   if (condition) {
     element.classList.add(className);
   } else {
@@ -57,19 +43,13 @@ const addOrRemoveClass = function (element, className, condition) {
   }
 };
 
-const isEscapeKey = function (evt) {
-  return evt.key === 'Escape';
-};
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
 export {
-  addOrRemoveClass,
-  allowHashtagChar,
-  debounce,
-  getRandomArrayElement,
+  addOrRemoveClass, debounce, getRandomArrayElement,
   getRandomInteger,
   getUniqueRandomArrayElement,
   isEscapeKey,
-  renderTemplate,
-  validateHashtag,
-  validateStringLen,
+  renderTemplate
 };
+

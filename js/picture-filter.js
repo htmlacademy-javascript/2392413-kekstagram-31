@@ -8,8 +8,8 @@ import {
   getPictureCount,
   getSelectedFilter,
   setSelectedFilter,
-  setUseDebaunce,
-  useDebaunce,
+  setUseDebounce,
+  useDebounce,
 } from './picture-state';
 import { createThumbnails } from './thumbnails';
 import { addOrRemoveClass, debounce } from './utils';
@@ -17,12 +17,12 @@ import { addOrRemoveClass, debounce } from './utils';
 /**
  * Устранение дребезга. Перерисовываем фото только через DEBOUNCE_TIMEOUT
  */
-const createThumbnailsDebounce = debounce(createThumbnails, DEBOUNCE_TIMEOUT);
+const getThumbnailsDebounce = debounce(createThumbnails, DEBOUNCE_TIMEOUT);
 
 /**
  * Отрисовка выбранного фильтра
  */
-const renderActiveFilter = function () {
+const renderActiveFilter = () => {
   const currentFilter = getSelectedFilter();
   filtersButtonElement.forEach((element) => {
     addOrRemoveClass(
@@ -32,11 +32,11 @@ const renderActiveFilter = function () {
     );
   });
 
-  if (useDebaunce()) {
-    createThumbnailsDebounce();
+  if (useDebounce()) {
+    getThumbnailsDebounce();
   } else {
     createThumbnails();
-    setUseDebaunce(true);
+    setUseDebounce(true);
   }
 };
 
@@ -44,7 +44,7 @@ const renderActiveFilter = function () {
  * Применение выбранного фильтра
  * @param {EventTarget} target
  */
-const applyFilter = function (target) {
+const applyFilter = (target) => {
   setSelectedFilter(target);
   renderActiveFilter();
 };
@@ -52,11 +52,14 @@ const applyFilter = function (target) {
 /**
  * Обработчик события клик по фильтру
  */
-const onFilterClick = function (evt) {
+const onFilterClick = (evt) => {
   applyFilter(evt.target);
 };
 
-const initFilters = async function () {
+/**
+ * Инициализация фильтров
+ */
+const initFilters = () => {
   filtersFormElement.addEventListener('click', onFilterClick);
   addOrRemoveClass(
     filtersContainerElement,

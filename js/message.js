@@ -17,24 +17,24 @@ import { isEscapeKey } from './utils';
  * @param {HTMLElement} messageContainer указатель на контейнер формы
  * @returns {function} функция для отображения формы
  */
-const message = function (messageButton, messageContainer) {
-  const onMessageButtonKeyDown = function (evt) {
+const getMessageDialog = (messageButton, messageContainer) => {
+  const onMessageButtonKeyDown = (evt) => {
     if (isEscapeKey(evt)) {
-      messageFormClose();
+      closeMessageDialog();
     }
   };
 
-  const onOutsideContainerClick = function (evt) {
+  const onOutsideContainerClick = (evt) => {
     if (evt.target === messageContainer) {
-      messageFormClose();
+      closeMessageDialog();
     }
   };
 
-  const onMessageButtonClick = function () {
-    messageFormClose();
+  const onMessageButtonClick = () => {
+    closeMessageDialog();
   };
 
-  function messageFormClose() {
+  function closeMessageDialog() {
     messageContainer.remove();
     document.removeEventListener('keydown', onMessageButtonKeyDown);
     document.removeEventListener('click', onOutsideContainerClick);
@@ -46,7 +46,7 @@ const message = function (messageButton, messageContainer) {
    * Показать форму
    * @param {[{ type: string, cb: EventListenerOrEventListenerObject }]} preventEvents при отображения формы события удаляются и восстанавливаются в момент закрытия формы
    */
-  const showMessage = function (preventEvents = []) {
+  const showMessage = (preventEvents = []) => {
     setPreventEvents(preventEvents);
     resetPreventEvents();
     document.addEventListener('keydown', onMessageButtonKeyDown);
@@ -57,7 +57,7 @@ const message = function (messageButton, messageContainer) {
   return showMessage;
 };
 
-const showError = message(errorButtonElement, errorContainerElement);
-const showSuccess = message(successButtonElement, successContainerElement);
+const showError = getMessageDialog(errorButtonElement, errorContainerElement);
+const showSuccess = getMessageDialog(successButtonElement, successContainerElement);
 
 export { showError, showSuccess };

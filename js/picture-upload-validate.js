@@ -4,9 +4,11 @@ import {
   hashtagInputElement,
   uploadPictureFormElement,
 } from './page-elements';
-import { validateHashtag, validateStringLen } from './utils';
 
-const pristineInit = function () {
+const validateHashtag = (hashtag) => /^#[a-zа-яё0-9]{1,19}$/i.test(hashtag);
+
+const validateStringLen = (stringValue, maxLength) => stringValue.length <= maxLength;
+const pristineInit = () => {
   /**
    * Инициализация Pristine для валидации формы ввода.
    * Дока: https://pristine.js.org/
@@ -23,24 +25,12 @@ const pristineInit = function () {
   );
 
   /**
-   * Функция для валидации Hashtag.
+   * Функция валидации Hashtag.
    * Если вернуло не пустую строку - ошибка.
-   *
-   * Правила:
-   * - хэштег начинается с символа # (решётка);
-   * - строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;
-   * - хеш-тег не может состоять только из одной решётки;
-   * - максимальная длина одного хэштега 20 символов, включая решётку;
-   * - хэштеги нечувствительны к регистру: #ХэшТег и #хэштег считаются одним и тем же тегом;
-   * - хэштеги разделяются пробелами;
-   * - один и тот же хэштег не может быть использован дважды;
-   * - нельзя указать больше пяти хэштегов;
-   * - хэштеги необязательны.
-   *
    * @param {string} hashtag
    * @returns {string}
    */
-  const getHashtagErrorMessage = function (hashtag) {
+  const getHashtagErrorMessage = (hashtag) => {
     const hashtagNormalize = hashtag.trim().toLowerCase().replace(/\s+/g, ' ');
 
     if (hashtagNormalize === '') {
@@ -67,24 +57,12 @@ const pristineInit = function () {
     return '';
   };
 
-  /**
-   * Добавляем валидатор для поля с HashTag.
-   *
-   * Проблема: не понятно как можно обойтись одним вызовом getHashtagErrorMessage!!!
-   */
   pristine.addValidator(
     hashtagInputElement,
     (hashtag) => getHashtagErrorMessage(hashtag) === '',
     getHashtagErrorMessage
   );
 
-  /**
-   * Добавляем валидатор для поля с комментарием.
-   *
-   * Правила:
-   * - комментарий не обязателен;
-   * - длина комментария не может составлять больше DESCRIPTION_MAX_LENGTH символов;
-   */
   pristine.addValidator(
     descriptionInputElement,
     (description) => validateStringLen(description, DESCRIPTION_MAX_LENGTH),

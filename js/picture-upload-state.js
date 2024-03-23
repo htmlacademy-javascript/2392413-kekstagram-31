@@ -1,12 +1,10 @@
 const pictureUploadState = {
-  pristine: undefined,
+  pristine: null,
 };
 
-const getPristine = function () {
-  return pictureUploadState.pristine;
-};
+const getPristine = () => pictureUploadState.pristine;
 
-const setPristine = function (value) {
+const setPristine = (value) => {
   pictureUploadState.pristine = value;
 };
 

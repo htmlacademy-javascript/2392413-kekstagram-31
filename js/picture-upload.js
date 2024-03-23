@@ -1,6 +1,4 @@
 import { sendData } from './api';
-import { FILE_TYPES } from './config';
-import { showErrorData } from './error-data';
 import { showError, showSuccess } from './message';
 import {
   descriptionInputElement,
@@ -25,40 +23,23 @@ import { isEscapeKey } from './utils';
  * @param {Elemetn} fileElement указатель на input type="file"
  * @returns {string|null}
  */
-const getBlobURL = function (fileElement) {
-  const file = fileElement.files[0];
-  const fileName = file.name.toLowerCase();
-  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
-  if (!matches) {
-    showErrorData('Формат файла не поддерживается.');
-    return;
-  }
-  return URL.createObjectURL(file);
-};
+const getBlobURL = (fileElement) => URL.createObjectURL(fileElement.files[0]);
 
-const onUploadFormKeydown = function (evt) {
+const onUploadFormKeydown = (evt) => {
   if (isEscapeKey(evt)) {
-    uploadFormClose();
+    closeUploadForm();
   }
 };
 
-const onUploadCloseClick = function () {
-  uploadFormClose();
+const onUploadCloseClick = () => {
+  closeUploadForm();
 };
 
 /**
  * Обработчик события закрытия формы. Срабатывает на Esc и Click
  * по иконке на форме.
- * Необходимо:
- * - вернуть класс hidden;
- * - у элемента body удаляется класс modal-open;
- * - у элемента с выбранным файлом необходимо сбросить value чтобы повторно можно
- * было загрузить одит и тот же файл.
- *
- * Нюанс: если фокус находится в поле ввода хэштега или комментария, нажатие на
- * Esc не должно приводить к закрытию формы редактирования изображения.
  */
-function uploadFormClose() {
+function closeUploadForm() {
   document.removeEventListener('keydown', onUploadFormKeydown);
   uploadPictureOverlayElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
@@ -72,12 +53,8 @@ function uploadFormClose() {
 
 /**
  * Обработчик собития change поля с выбором файла.
- * После выбора файла должна появиться модальная форма. Для этого
- * удаляется класс hidden, а для body задаётся класс modal-open.
- * Для закрытия формы добавляем слушателя на событие
- * keydown на документ и событие click на иконку.
  */
-const onPictureInputChange = function () {
+const onPictureInputChange = () => {
   if (!getPristine()) {
     setPristine(pristineInit());
   }
@@ -101,7 +78,7 @@ const onPictureInputChange = function () {
 /**
  * Блокировка кнопки отправки формы
  */
-const blockSubmitButton = function () {
+const blockSubmitButton = () => {
   submitButtonElement.disabled = true;
   submitButtonElement.textContent = 'Публикация изображения...';
 };
@@ -109,16 +86,16 @@ const blockSubmitButton = function () {
 /**
  * Разблокировка кнопки отправки формы
  */
-const unblockSubmitButton = function () {
+const unblockSubmitButton = () => {
   submitButtonElement.disabled = false;
   submitButtonElement.textContent = 'Опубликовать';
 };
 
 /**
  * Обработчик события submit (отправка формы).
- * Если Pristine возвращает false, значит где-то есть ошибка.
+ * Если Pristine возвращает false, значит где-то ошибка.
  */
-const onUploadPictureFormSubmit = function (evt) {
+const onUploadPictureFormSubmit = (evt) => {
   evt.preventDefault();
   if (!getPristine().validate()) {
     return;
@@ -127,7 +104,7 @@ const onUploadPictureFormSubmit = function (evt) {
   blockSubmitButton();
   sendData(new FormData(evt.target))
     .then(() => {
-      uploadFormClose();
+      closeUploadForm();
       showSuccess();
     })
     .catch(() => {
@@ -139,18 +116,17 @@ const onUploadPictureFormSubmit = function (evt) {
 /**
  * Инициализация формы загрузки фото.
  */
-const initUploadPicture = function () {
+const initUploadPicture = () => {
   uploadPictureInputElement.setAttribute(
     'accept',
-    `image/${FILE_TYPES.join(', image/')}`
+    'image/*'
   );
   uploadPictureFormElement.addEventListener(
     'submit',
     onUploadPictureFormSubmit
   );
   uploadPictureInputElement.addEventListener('change', onPictureInputChange);
-  inputFieldContainerElement.addEventListener('keydown', (evt) =>
-    evt.stopPropagation()
+  inputFieldContainerElement.addEventListener('keydown', (evt) => evt.stopPropagation()
   );
 };
 

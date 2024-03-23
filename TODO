@@ -1,4 +1,12 @@
+page-elements.js:
+  ☐ нейминги поиска селекторов можно писать короче, например uploadPictureFormElement => pictureFormElement и т.п. можем на созвоне пройтись можно от Д3 абстрагироваться (он про другое, но суть похожа)
 
-Todo:
-  ✔ Вынести настройки в отдельный config.js @done(24-02-24 16:21)
-  ✔ dicts переименовать в единственное число @done(24-02-27 22:50)
+
+
+Archive:
+  ✔ Вынести настройки в отдельный config.js @done(24-02-24 16:21) @project(Todo)
+  ✔ dicts переименовать в единственное число @done(24-02-27 22:50) @project(Todo)
+  ✔ Как писать комменты можно почитать https://learn.javascript.ru/comments @done(24-03-22 22:14) @project(config.js)
+  ✘ нейминг не корректный, нужно вместо фильтра именовать сортировка @cancelled(24-03-23 12:16) @project(main.js)
+  ✘ Object.assign(picturePreviewElement.style, newStyleEffect); сейчас как правило используют более современный вид записи picturePreviewElement.style = {…picturePreviewElement.style, …newStyleEffect} - для объединения нескольких объектов @cancelled(24-03-23 12:16) @project(picture-effect.js)
+  ✔ если функция используется только в одном модуле, то лучше ее там и писать, потому что если все доп функции выносить в общий файл, то он разрастется очень быстро @done(24-03-23 12:47) @project(utils.js)

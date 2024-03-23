@@ -2,7 +2,7 @@ import { PICTURE_RANDOM_COUNT } from './config';
 import { getUniqueRandomArrayElement } from './utils';
 
 const pictureState = {
-  useDebaunce: false,
+  useDebounce: false,
   pictures: [],
   selectedPicture: null,
   lastCommentShowItem: -1,
@@ -18,62 +18,48 @@ const pictureState = {
 
 const defaultPictureState = { ...pictureState };
 
-const useDebaunce = function () {
-  return pictureState.useDebaunce;
+const useDebounce = () => pictureState.useDebounce;
+
+const setUseDebounce = (value) => {
+  pictureState.useDebounce = value;
 };
 
-const setUseDebaunce = function (value) {
-  pictureState.useDebaunce = value;
-};
+const getPictureCount = () => pictureState.pictures.length;
 
-const getPictureCount = function () {
-  return pictureState.pictures.length;
-};
-
-const getPictures = function () {
+const getPictures = () => {
   const currentFilter = pictureState.selectedFilter.id;
   const filterResult = pictureState.filters[currentFilter];
   return filterResult(pictureState.pictures);
 };
 
-const setPictures = function (value) {
+const setPictures = (value) => {
   pictureState.pictures = value ? value : [];
 };
 
-const getPictureById = function (pictureId) {
-  return pictureState.pictures.find((element) => element.id === pictureId);
-};
+const getPictureById = (pictureId) => pictureState.pictures.find((element) => element.id === pictureId);
 
-const getSelectedPicture = function () {
-  return pictureState.selectedPicture;
-};
+const getSelectedPicture = () => pictureState.selectedPicture;
 
-const setSelectedPicture = function (pictureId) {
+const setSelectedPicture = (pictureId) => {
   pictureState.selectedPicture = getPictureById(pictureId);
 };
 
-const resetSelectedPicture = function () {
+const resetSelectedPicture = () => {
   pictureState.selectedPicture = defaultPictureState.selectedPicture;
   pictureState.lastCommentShowItem = defaultPictureState.lastCommentShowItem;
 };
 
-const getComments = function () {
-  return pictureState.selectedPicture.comments;
-};
+const getComments = () => pictureState.selectedPicture.comments;
 
-const getLastCommentShowItem = function () {
-  return pictureState.lastCommentShowItem;
-};
+const getLastCommentShowItem = () => pictureState.lastCommentShowItem;
 
-const setLastCommentShowItem = function (value) {
+const setLastCommentShowItem = (value) => {
   pictureState.lastCommentShowItem = value;
 };
 
-const getSelectedFilter = function () {
-  return pictureState.selectedFilter;
-};
+const getSelectedFilter = () => pictureState.selectedFilter;
 
-const setSelectedFilter = function (value) {
+const setSelectedFilter = (value) => {
   pictureState.selectedFilter = value;
 };
 
@@ -89,6 +75,7 @@ export {
   setPictures,
   setSelectedFilter,
   setSelectedPicture,
-  setUseDebaunce,
-  useDebaunce,
+  setUseDebounce,
+  useDebounce
 };
+

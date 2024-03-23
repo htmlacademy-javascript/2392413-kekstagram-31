@@ -1,6 +1,6 @@
 import { renderTemplate } from './utils';
 
-const templatePictureElement = document.querySelector('#picture').content;
+const templatePictureElement = document.querySelector('#picture');
 
 const picturePoolElement = document.querySelector('.pictures');
 
@@ -131,5 +131,6 @@ export {
   uploadPictureCancelElement,
   uploadPictureFormElement,
   uploadPictureInputElement,
-  uploadPictureOverlayElement,
+  uploadPictureOverlayElement
 };
+

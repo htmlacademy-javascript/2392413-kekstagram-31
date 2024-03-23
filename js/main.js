@@ -8,11 +8,11 @@ import { initPictureView } from './picture-view';
 getData()
   .then((pictures) => {
     setPictures(pictures);
+    initFilters();
   })
   .catch((err) => {
     showErrorData(err.message);
-  })
-  .finally(initFilters);
+  });
 
 initUploadPicture();
 initPictureView();

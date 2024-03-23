@@ -5,7 +5,7 @@ import { renderBigPicture } from './picture-view';
 /**
  * Очистка миниатюр
  */
-const clearThumbnails = function () {
+const clearThumbnails = () => {
   picturePoolElement.querySelectorAll('.picture').forEach((element) => {
     element.remove();
   });
@@ -14,34 +14,34 @@ const clearThumbnails = function () {
 /**
  * Обработчик события клик на миниатюре
  */
-const onThumbnailClick = function (evt) {
-  const picture = evt.target.closest('.picture');
-  if (!picture) {
+const onThumbnailClick = (evt) => {
+  const pictureElement = evt.target.closest('.picture');
+  if (!pictureElement) {
     return;
   }
 
   evt.preventDefault();
-  setSelectedPicture(+picture.dataset.pictureId);
+  setSelectedPicture(Number(pictureElement.dataset.pictureId));
   renderBigPicture();
 };
 
 /**
- * Создание одной миниатюры
+ * Создание миниатюры
  * @param {{id: number, url: string, description: string, likes: number, comments: string}} данные миниатюры
  * @returns {DocumentFragment}
  */
-const createThumbnail = function ({ id, url, description, likes, comments }) {
-  const pictureElement = templatePictureElement.cloneNode(true);
-  const img = pictureElement.querySelector('.picture__img');
-  const like = pictureElement.querySelector('.picture__likes');
-  const comment = pictureElement.querySelector('.picture__comments');
-  const link = pictureElement.querySelector('a');
+const getThumbnailElement = ({ id, url, description, likes, comments }) => {
+  const pictureElement = templatePictureElement.content.cloneNode(true);
+  const imgElement = pictureElement.querySelector('.picture__img');
+  const likeElement = pictureElement.querySelector('.picture__likes');
+  const commentElement = pictureElement.querySelector('.picture__comments');
+  const linkElement = pictureElement.querySelector('a');
 
-  link.dataset.pictureId = id;
-  img.src = url;
-  img.alt = description;
-  like.textContent = likes;
-  comment.textContent = comments.length;
+  linkElement.dataset.pictureId = id;
+  imgElement.src = url;
+  imgElement.alt = description;
+  likeElement.textContent = likes;
+  commentElement.textContent = comments.length;
 
   return pictureElement;
 };
@@ -49,11 +49,10 @@ const createThumbnail = function ({ id, url, description, likes, comments }) {
 /**
  * Создание миниатюр
  */
-const createThumbnails = function () {
+const createThumbnails = () => {
   clearThumbnails();
   const pictures = getPictures();
-  pictures.forEach((picture) =>
-    picturePoolElement.appendChild(createThumbnail(picture))
+  pictures.forEach((picture) => picturePoolElement.appendChild(getThumbnailElement(picture))
   );
   picturePoolElement.addEventListener('click', onThumbnailClick);
 };

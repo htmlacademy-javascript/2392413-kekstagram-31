@@ -6,9 +6,9 @@ import {
 
 /**
  * Показать предупреждение
- * @param {string} errorText текст предупреждени
+ * @param {string} errorText
  */
-const showErrorData = function (errorText) {
+const showErrorData = (errorText) => {
   if (errorText) {
     errorDataTitleElement.textContent = errorText;
   }
