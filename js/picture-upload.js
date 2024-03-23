@@ -15,7 +15,7 @@ import {
 import { initEffectPicture } from './picture-effect';
 import { initScalePicture } from './picture-scale';
 import { getPristine, setPristine } from './picture-upload-state';
-import { pristineInit } from './picture-upload-validate';
+import { initPristine } from './picture-upload-validate';
 import { isEscapeKey } from './utils';
 
 /**
@@ -56,7 +56,7 @@ function closeUploadForm() {
  */
 const onPictureInputChange = () => {
   if (!getPristine()) {
-    setPristine(pristineInit());
+    setPristine(initPristine());
   }
 
   const blobURL = getBlobURL(uploadPictureInputElement);

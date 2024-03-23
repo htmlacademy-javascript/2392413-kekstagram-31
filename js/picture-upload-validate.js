@@ -8,7 +8,7 @@ import {
 const validateHashtag = (hashtag) => /^#[a-zа-яё0-9]{1,19}$/i.test(hashtag);
 
 const validateStringLen = (stringValue, maxLength) => stringValue.length <= maxLength;
-const pristineInit = () => {
+const initPristine = () => {
   /**
    * Инициализация Pristine для валидации формы ввода.
    * Дока: https://pristine.js.org/
@@ -72,4 +72,4 @@ const pristineInit = () => {
   return pristine;
 };
 
-export { pristineInit };
+export { initPristine };
