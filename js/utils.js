@@ -13,9 +13,9 @@ const getUniqueRandomArrayElement = (elements, maxCount) => {
     uniqueueIndex.add(getRandomInteger(0, elements.length - 1));
   }
 
-  const result = [];
-  uniqueueIndex.forEach((value) => result.push(elements[value]));
-  return result;
+  const uniqueElements = [];
+  uniqueueIndex.forEach((value) => uniqueElements.push(elements[value]));
+  return uniqueElements;
 };
 
 const renderTemplate = (templateId, selector) => {

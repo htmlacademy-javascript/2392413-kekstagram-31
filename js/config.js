@@ -21,42 +21,42 @@ const effectStyle = {
       range: { min: 0, max: 0 },
       step: 0.1,
     },
-    css: () => ({ filter: 'none' }),
+    getEffectProperty: () => ({ filter: 'none' }),
   },
   chrome: {
     slider: {
       range: { min: 0, max: 1 },
       step: 0.1,
     },
-    css: (value) => ({ filter: `grayscale(${value})` }),
+    getEffectProperty: (value) => ({ filter: `grayscale(${value})` }),
   },
   sepia: {
     slider: {
       range: { min: 0, max: 1 },
       step: 0.1,
     },
-    css: (value) => ({ filter: `sepia(${value})` }),
+    getEffectProperty: (value) => ({ filter: `sepia(${value})` }),
   },
   marvin: {
     slider: {
       range: { min: 0, max: 100 },
       step: 1,
     },
-    css: (value) => ({ filter: `invert(${value}%)` }),
+    getEffectProperty: (value) => ({ filter: `invert(${value}%)` }),
   },
   phobos: {
     slider: {
       range: { min: 0, max: 3 },
       step: 0.1,
     },
-    css: (value) => ({ filter: `blur(${value}px)` }),
+    getEffectProperty: (value) => ({ filter: `blur(${value}px)` }),
   },
   heat: {
     slider: {
       range: { min: 1, max: 3 },
       step: 0.1,
     },
-    css: (value) => ({ filter: `brightness(${value})` }),
+    getEffectProperty: (value) => ({ filter: `brightness(${value})` }),
   },
 };
 

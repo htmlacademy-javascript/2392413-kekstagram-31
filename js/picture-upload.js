@@ -63,7 +63,9 @@ const onPictureInputChange = () => {
 
   picturePreviewElement.src = blobURL;
   effectsPreviewElement.forEach(
-    (element) => (element.style.backgroundImage = `url(${blobURL})`)
+    (element) => {
+      element.style.backgroundImage = `url(${blobURL})`;
+    }
   );
 
   initScalePicture();

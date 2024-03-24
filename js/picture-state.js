@@ -12,9 +12,10 @@ const pictureState = {
     'filter-random': (pictures) =>
       getUniqueRandomArrayElement(pictures, PICTURE_RANDOM_COUNT),
     'filter-discussed': (pictures) =>
-      pictures.slice().sort((a, b) => b.comments.length - a.comments.length),
+      pictures.slice().sort((secondPicture, firstPicture) => firstPicture.comments.length - secondPicture.comments.length),
   },
 };
+
 
 const defaultPictureState = { ...pictureState };
 

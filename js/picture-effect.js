@@ -31,7 +31,7 @@ const setSelectedEffect = (value) => {
 const applyEffect = () => {
   effectLevelValueElement.value = Number(effectLevelSliderElement.noUiSlider.get());
   const curentEffect = getSelectedEffect();
-  const newStyleEffect = effectStyle[curentEffect]?.css(
+  const newStyleEffect = effectStyle[curentEffect]?.getEffectProperty(
     effectLevelValueElement.value
   );
   Object.assign(picturePreviewElement.style, newStyleEffect);
@@ -73,7 +73,7 @@ const resetEffect = () => {
 /**
  * Обработчик переключателя эффекта.
  */
-const onEffectItemClick = (evt) => {
+const onEffectItemChange = (evt) => {
   evt.preventDefault();
   if (evt.target !== effectsListElement &&
     !evt.target.classList.contains('effects__radio')) {
@@ -89,7 +89,7 @@ const initEffectPicture = () => {
   if (!effectLevelSliderElement.noUiSlider) {
     initUISlider();
   }
-  effectsListElement.addEventListener('change', onEffectItemClick);
+  effectsListElement.addEventListener('change', onEffectItemChange);
   setSelectedEffect('none');
   resetEffect();
 };
